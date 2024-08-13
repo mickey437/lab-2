@@ -5,3 +5,22 @@ const socketIo = require('socket.io');
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
+
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
+});
+
+io.on('connection', (socket) => {
+  console.log('a user logged in');
+  socket.on('logged out', () => {
+    console.log('user logged out');
+  });
+});
+ 
+
+server.listen(3000, () => {
+  console.log('listening on *:3000');
+});
+
+
